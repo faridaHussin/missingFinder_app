@@ -1,3 +1,5 @@
+import 'package:missing_finder1/data/model/response/RegisterResponse.dart';
+
 abstract class RegisterStates {}
 
 class RegisterInitialStates extends RegisterStates {}
@@ -14,4 +16,8 @@ class RegisterErrorStates extends RegisterStates {
   RegisterErrorStates({this.ErrorMessage});
 }
 
-class RegisterSuccessStates extends RegisterStates {}
+class RegisterSuccessStates extends RegisterStates {
+  RegisterResponse response;
+
+  RegisterSuccessStates({required this.response});
+}

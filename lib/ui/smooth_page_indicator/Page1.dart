@@ -1,27 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+class UnboardContent {
+  String text;
 
-class Page1 extends StatelessWidget {
-  const Page1({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    var theme = Theme.of(context);
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20.r),
-          child: Container(
-            child: Text(
-              '8225663',
-              style: TextStyle(color: Colors.black),
-            ),
-            color: Color(0xFF987B71).withOpacity(0.5),
-          ),
-        ),
-      ),
-    );
-  }
+  UnboardContent({
+    required this.text,
+  });
 }
+
+List<UnboardContent> contents = [
+  UnboardContent(
+      text:
+          "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the "
+          "industry's standard dummy text ever since the 1500s, "
+          "when an unknown printer took a galley of type and scrambled it "),
+  UnboardContent(
+      text:
+          "simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the "
+          "industry's standard dummy text ever since the 1500s, "
+          "when an unknown printer took a galley of type and scrambled it "),
+];

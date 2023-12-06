@@ -25,7 +25,7 @@ class TextFieldItem extends StatelessWidget {
       children: [
         Padding(
           padding:
-              EdgeInsets.only(top: 15.h, bottom: 10.h, left: 20.w, right: 20.w),
+              EdgeInsets.only(top: 15.h, bottom: 10.h, left: 10.w, right: 10.w),
           child: TextFormField(
             decoration: InputDecoration(
                 border: OutlineInputBorder(

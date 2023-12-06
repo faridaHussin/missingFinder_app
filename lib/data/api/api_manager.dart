@@ -1,10 +1,25 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:missing_finder1/data/api/api_constants.dart';
+import 'package:missing_finder1/data/api/base_error.dart';
+import 'package:missing_finder1/data/model/request/RegisterRequest.dart';
+import 'package:missing_finder1/data/model/response/RegisterResponse.dart';
 
 class ApiManager {
-  register(
+  ApiManager._();
+
+  static ApiManager? _instance;
+
+  static ApiManager getInstance() {
+    _instance ??= ApiManager._();
+    return _instance!;
+  }
+
+  Future<Either<BaseError, RegisterResponse>> register(
       String firstName,
       String lastName,
       File personalIdCard,
@@ -12,9 +27,34 @@ class ApiManager {
       String password,
       String confirmPassword,
       DateTime dateOfBirth,
-      String gender) {
-    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.registerApi);
-
-    http.post(url);
+      String gender) async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
+      Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.registerApi);
+      var requestBody = RegisterRequest(
+        personalIdCard: personalIdCard.toString(),
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        dateOfBirth: dateOfBirth.toString(),
+        gender: gender,
+      );
+      var response = await http.post(url, body: requestBody.toJson());
+      var registerResponse =
+          RegisterResponse.fromJson(jsonDecode(response.body));
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(registerResponse);
+      } else {
+        return Left(BaseError(
+            errorMessage: registerResponse.error != null
+                ? registerResponse.error!.msg!
+                : registerResponse.message));
+      }
+    } else {
+      return Left(BaseError(errorMessage: "check internet connection"));
+    }
   }
 }
