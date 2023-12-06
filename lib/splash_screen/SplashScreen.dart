@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:missing_finder1/ui/smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../ui/smooth_page_indicator/smooth_page_indicator.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = 'splash';
@@ -34,7 +35,7 @@ class SplashScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(
-                        context, SmoothPage.routeName);
+                        context, OnBoarging.routeName);
                   },
                   child: Text(
                     'about us',
