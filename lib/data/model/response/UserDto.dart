@@ -1,3 +1,5 @@
+import 'package:missing_finder1/domain/Entity/RegisterResponseEntity.dart';
+
 import 'PersonalIdCard.dart';
 
 /// firstName : "farida"
@@ -18,14 +20,13 @@ import 'PersonalIdCard.dart';
 /// updatedAt : "2023-12-04T19:06:45.442Z"
 /// __v : 0
 
-class Result {
-  Result({
+class UserDto {
+  UserDto({
     this.firstName,
     this.lastName,
     this.userName,
     this.email,
     this.password,
-    this.personalIdCard,
     this.dateOfBirth,
     this.gender,
     this.isConfirmed,
@@ -39,15 +40,12 @@ class Result {
     this.v,
   });
 
-  Result.fromJson(dynamic json) {
+  UserDto.fromJson(dynamic json) {
     firstName = json['firstName'];
     lastName = json['lastName'];
     userName = json['userName'];
     email = json['email'];
     password = json['password'];
-    personalIdCard = json['personalIdCard'] != null
-        ? PersonalIdCard.fromJson(json['personalIdCard'])
-        : null;
     dateOfBirth = json['dateOfBirth'];
     gender = json['gender'];
     isConfirmed = json['isConfirmed'];
@@ -66,7 +64,6 @@ class Result {
   String? userName;
   String? email;
   String? password;
-  PersonalIdCard? personalIdCard;
   String? dateOfBirth;
   String? gender;
   bool? isConfirmed;
@@ -86,9 +83,6 @@ class Result {
     map['userName'] = userName;
     map['email'] = email;
     map['password'] = password;
-    if (personalIdCard != null) {
-      map['personalIdCard'] = personalIdCard?.toJson();
-    }
     map['dateOfBirth'] = dateOfBirth;
     map['gender'] = gender;
     map['isConfirmed'] = isConfirmed;
@@ -101,5 +95,15 @@ class Result {
     map['updatedAt'] = updatedAt;
     map['__v'] = v;
     return map;
+  }
+
+  UserEntity toUserEntity() {
+    return UserEntity(
+      firstName: firstName,
+      lastName: lastName,
+      gender: gender,
+      dateOfBirth: dateOfBirth,
+      email: email,
+    );
   }
 }

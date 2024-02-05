@@ -15,6 +15,7 @@ class TextMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -102,7 +103,7 @@ class TextMessage extends StatelessWidget {
                         },
                         child: Text('Verify Code',
                             style:
-                                TextStyle(color: Colors.white, fontSize: 17)),
+                            TextStyle(color: Colors.white, fontSize: 17)),
                         style: ElevatedButton.styleFrom(
                           fixedSize: Size(195, 39),
                           backgroundColor: Color(0xFF634E3A).withOpacity(0.80),

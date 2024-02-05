@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:missing_finder1/data/di.dart';
 import 'package:missing_finder1/ui/register/TextMessage.dart';
 import 'package:missing_finder1/ui/register/picker_file.dart';
@@ -82,10 +81,13 @@ class _PersonalIDState extends State<PersonalID> {
               ),
             ),
             Container(
-
+              child: CircleAvatar(
+                backgroundImage:
+                    personalIdCard == null ? null : FileImage(personalIdCard!),
+              ),
             ),
             SizedBox(
-              height: 400.h,
+              height: 250.h,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -129,31 +131,39 @@ class _PersonalIDState extends State<PersonalID> {
             child: Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('gallery', style: TextStyle(color: Colors.white
-                        , fontSize: 20)),
-                    InkWell(
-                        onTap: () {
-                          pickImage();
-                        },
-                        child: ImageIcon(
-                            AssetImage("assets/images/Group 7.png"), size: 20)),
-                  ],
-                ),
-
-              ],
-            ),
+                  Text(
+                    'Gallery',
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                  IconButton(
+                      onPressed: () async {
+                        File? temp = await ImageFunctions.galleryPicker();
+                        if (temp != null) {
+                          temp = personalIdCard;
+                        }
+                        setState(() {});
+                      },
+                      icon: Icon(Icons.arrow_drop_down)),
+                  SizedBox(
+                    width: 245.w,
+                  ),
+                  IconButton(
+                    onPressed: () async {
+                      File? temp = await ImageFunctions.cameraPicker();
+                      if (temp != null) {
+                        temp = personalIdCard;
+                      }
+                      setState(() {});
+                    },
+                    icon: Icon(Icons.camera_alt_outlined),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
+      ),
     );
-  }
-
-  Future pickImage() async {
-    final image = await ImagePicker().pickImage(source:
-        if(image==null)
-    return;
-    final imageTemporrary = File(image.path);
-    this.image = imageTemporrary;);
   }
 }

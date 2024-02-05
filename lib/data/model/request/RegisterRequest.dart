@@ -9,7 +9,6 @@
 
 class RegisterRequest {
   RegisterRequest({
-    this.personalIdCard,
     this.firstName,
     this.lastName,
     this.email,
@@ -20,7 +19,6 @@ class RegisterRequest {
   });
 
   RegisterRequest.fromJson(dynamic json) {
-    personalIdCard = json['personalIdCard'];
     firstName = json['firstName'];
     lastName = json['lastName'];
     email = json['phone'];
@@ -30,7 +28,6 @@ class RegisterRequest {
     gender = json['gender'];
   }
 
-  String? personalIdCard;
   String? firstName;
   String? lastName;
   String? email;
@@ -41,7 +38,6 @@ class RegisterRequest {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['personalIdCard'] = personalIdCard;
     map['firstName'] = firstName;
     map['lastName'] = lastName;
     map['phone'] = email;

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
@@ -7,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:missing_finder1/data/api/api_constants.dart';
 import 'package:missing_finder1/data/api/base_error.dart';
 import 'package:missing_finder1/data/model/request/RegisterRequest.dart';
-import 'package:missing_finder1/data/model/response/RegisterResponse.dart';
+import 'package:missing_finder1/data/model/response/RegisterResponseDto.dart';
 
 class ApiManager {
   ApiManager._();
@@ -19,10 +18,9 @@ class ApiManager {
     return _instance!;
   }
 
-  Future<Either<BaseError, RegisterResponse>> register(
+  Future<Either<BaseError, RegisterResponseDto>> register(
       String firstName,
       String lastName,
-      File personalIdCard,
       String email,
       String password,
       String confirmPassword,
@@ -33,7 +31,6 @@ class ApiManager {
         connectivityResult == ConnectivityResult.wifi) {
       Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.registerApi);
       var requestBody = RegisterRequest(
-        personalIdCard: personalIdCard.toString(),
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -44,7 +41,7 @@ class ApiManager {
       );
       var response = await http.post(url, body: requestBody.toJson());
       var registerResponse =
-          RegisterResponse.fromJson(jsonDecode(response.body));
+          RegisterResponseDto.fromJson(jsonDecode(response.body));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(registerResponse);
       } else {

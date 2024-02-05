@@ -29,6 +29,7 @@ class _RegisterScreenWithNumState extends State<RegisterScreenWithNum> {
       bloc: viewModel,
       listener: (context, state) {},
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           height: double.infinity,
           width: double.infinity,
@@ -76,136 +77,140 @@ class _RegisterScreenWithNumState extends State<RegisterScreenWithNum> {
               SizedBox(
                 height: 25,
               ),
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 100),
-                    child: Text(
-                      'Please enter your mobile number ',
-                      style: theme.textTheme.bodyMedium,
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 100),
+                      child: Text(
+                        'Please enter your mobile number ',
+                        style: theme.textTheme.bodyMedium,
+                      ),
                     ),
-                  ),
-                  Form(
-                    key: viewModel.forKey,
-                    child: Column(
-                      children: [
-                        TextFieldItem(
-                          hintText: 'Mobile Number',
-                          controller: viewModel.mobileNumber,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'please enter your mobile no';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.phone,
-                        ),
-                        TextFieldItem(
-                          hintText: 'password',
-                          controller: viewModel.password,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'please enter password';
-                            }
-                            bool emailValid = RegExp(
-                                    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
-                                .hasMatch(value);
-                            if (!emailValid) {
-                              return 'invalid password';
-                            }
-                          },
-                          keyboardType: TextInputType.visiblePassword,
-                          isObscure: viewModel.isObscure,
-                          suffixIcon: InkWell(
-                            child: viewModel.isObscure
-                                ? Icon(Icons.visibility_off)
-                                : Icon(Icons.visibility),
-                            onTap: () {
-                              if (viewModel.isObscure) {
-                                viewModel.isObscure = false;
-                              } else {
-                                viewModel.isObscure = true;
+                    Form(
+                      key: viewModel.forKey,
+                      child: Column(
+                        children: [
+                          TextFieldItem(
+                            hintText: 'Mobile Number',
+                            controller: viewModel.mobileNumber,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'please enter your mobile no';
                               }
-                              setState(() {});
+                              return null;
                             },
+                            keyboardType: TextInputType.phone,
                           ),
-                        ),
-                        TextFieldItem(
-                          hintText: 'Confirmation password',
-                          controller: viewModel.confirmationPassword,
-                          validator: (value) {
-                            if (value == null || value.trim().isEmpty) {
-                              return 'please enter rePassword';
-                            }
-                            if (value != viewModel.password.text) {
-                              return "password doesn't match";
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.visiblePassword,
-                          isObscure: viewModel.isObscure,
-                          suffixIcon: InkWell(
-                            child: viewModel.isObscure
-                                ? Icon(Icons.visibility_off)
-                                : Icon(Icons.visibility),
-                            onTap: () {
-                              if (viewModel.isObscure) {
-                                viewModel.isObscure = false;
-                              } else {
-                                viewModel.isObscure = true;
+                          TextFieldItem(
+                            hintText: 'password',
+                            controller: viewModel.password,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'please enter password';
                               }
-                              setState(() {});
+                              bool emailValid = RegExp(
+                                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                  .hasMatch(value);
+                              if (!emailValid) {
+                                return 'invalid password';
+                              }
                             },
+                            keyboardType: TextInputType.visiblePassword,
+                            isObscure: viewModel.isObscure,
+                            suffixIcon: InkWell(
+                              child: viewModel.isObscure
+                                  ? Icon(Icons.visibility_off)
+                                  : Icon(Icons.visibility),
+                              onTap: () {
+                                if (viewModel.isObscure) {
+                                  viewModel.isObscure = false;
+                                } else {
+                                  viewModel.isObscure = true;
+                                }
+                                setState(() {});
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                          TextFieldItem(
+                            hintText: 'Confirmation password',
+                            controller: viewModel.confirmationPassword,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'please enter rePassword';
+                              }
+                              if (value != viewModel.password.text) {
+                                return "password doesn't match";
+                              }
+                              return null;
+                            },
+                            keyboardType: TextInputType.visiblePassword,
+                            isObscure: viewModel.isObscure,
+                            suffixIcon: InkWell(
+                              child: viewModel.isObscure
+                                  ? Icon(Icons.visibility_off)
+                                  : Icon(Icons.visibility),
+                              onTap: () {
+                                if (viewModel.isObscure) {
+                                  viewModel.isObscure = false;
+                                } else {
+                                  viewModel.isObscure = true;
+                                }
+                                setState(() {});
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 25.h,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 50, right: 50),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, PersonalID.routeName);
-                      },
-                      child: Text('COUNTINE',
-                          style: TextStyle(color: Colors.white, fontSize: 17)),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(224, 48),
-                        backgroundColor: Color(0xFFE8D6D6).withOpacity(0.5),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: theme.primaryColor),
-                          borderRadius: BorderRadius.circular(25),
+                    SizedBox(
+                      height: 25.h,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50, right: 50),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, PersonalID.routeName);
+                        },
+                        child: Text('COUNTINE',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 17)),
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(224, 48),
+                          backgroundColor: Color(0xFFE8D6D6).withOpacity(0.5),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: theme.primaryColor),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 50, right: 50),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(
-                            context, RegisterScreenWithEmail.routeName);
-                      },
-                      child: Text('sign up with email',
-                          style: TextStyle(color: Colors.white, fontSize: 17)),
-                      style: ElevatedButton.styleFrom(
-                        fixedSize: Size(224, 48),
-                        backgroundColor: Color(0xFFE8D6D6).withOpacity(0.5),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: theme.primaryColor),
-                          borderRadius: BorderRadius.circular(25),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 50, right: 50),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushReplacementNamed(
+                              context, RegisterScreenWithEmail.routeName);
+                        },
+                        child: Text('sign up with email',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 17)),
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(224, 48),
+                          backgroundColor: Color(0xFFE8D6D6).withOpacity(0.5),
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: theme.primaryColor),
+                            borderRadius: BorderRadius.circular(25),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
