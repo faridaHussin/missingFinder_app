@@ -30,7 +30,7 @@ class _OnBoargingState extends State<OnBoarging> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.only(top: 20, right: 15, left: 15, bottom: 40),
+          padding: EdgeInsets.only(top: 40, right: 20, left: 20, bottom: 40),
           child: Stack(
             children: [
               PageView.builder(
@@ -50,7 +50,7 @@ class _OnBoargingState extends State<OnBoarging> {
                         border:
                             Border.all(color: Colors.white.withOpacity(0.5)),
                       ),
-                      child: Center(child: Text('')),
+                      child: Center(child: Text(contents[i].text)),
                     );
                   }),
               Padding(

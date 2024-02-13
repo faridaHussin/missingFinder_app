@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:missing_finder1/ui/register/RegisterScreen.dart';
+import 'package:missing_finder1/ui/register/RegisterScreenWithEmail.dart';
 
 import '../ui/smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -35,7 +37,7 @@ class SplashScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(
-                        context, OnBoarging.routeName);
+                        context, RegisterScreen.routeName);
                   },
                   child: Text(
                     'about us',

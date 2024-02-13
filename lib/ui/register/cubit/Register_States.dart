@@ -1,4 +1,4 @@
-import 'package:missing_finder1/data/model/response/RegisterResponse.dart';
+import '../../../domain/Entity/RegisterResponseEntity.dart';
 
 abstract class RegisterStates {}
 
@@ -11,13 +11,13 @@ class RegisterLoadingStates extends RegisterStates {
 }
 
 class RegisterErrorStates extends RegisterStates {
-  String? ErrorMessage;
+  String? Message;
 
-  RegisterErrorStates({this.ErrorMessage});
+  RegisterErrorStates({this.Message});
 }
 
 class RegisterSuccessStates extends RegisterStates {
-  RegisterResponse response;
+  RegisterResponseEntity registerResponseEntity;
 
-  RegisterSuccessStates({required this.response});
+  RegisterSuccessStates({required this.registerResponseEntity});
 }

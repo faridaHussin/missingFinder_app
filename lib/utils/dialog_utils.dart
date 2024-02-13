@@ -22,6 +22,7 @@ class DialogUtils {
             ),
           );
         });
+
   }
 
   static void hideLoading(BuildContext context) {
