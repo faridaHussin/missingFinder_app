@@ -9,6 +9,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        child: Center(
+          child: Text('home screen'),
+        ),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/background.jpg'),

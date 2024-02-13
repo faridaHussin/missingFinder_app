@@ -1,21 +1,11 @@
 import 'package:missing_finder1/domain/Entity/RegisterResponseEntity.dart';
-import 'package:missing_finder1/domain/Entity/auth_result_entity.dart';
 
-import 'UserDto.dart';
-
-/// success : true
-/// Message : "check inbox !"
-/// result : {"firstName":"farida","lastName":"sadek","userName":"farida-sadek3l","email":"farida.sadeq7@gmail.com","password":"$2a$08$Ey0aAZMDk46FN47cpgjp/.3sB/3EOcxDqWgD3imhJVutdiuSzoFqO","personalIdCard":{"secure_url":"https://res.cloudinary.com/dvferafsw/image/upload/v1701716804/du1vsz4dxlvqyy7a3i9y.png","public_id":"du1vsz4dxlvqyy7a3i9y"},"dateOfBirth":"2002-09-30T00:00:00.000Z","gender":"Female","isConfirmed":false,"status":"offline","role":"user","activationCode":"6677","createdCodeActivateAccount":"2023-12-04T19:06:45.420Z","_id":"656e234547508b52f7bcc838","createdAt":"2023-12-04T19:06:45.442Z","updatedAt":"2023-12-04T19:06:45.442Z","__v":0}
-/// token_Activate_Account : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NmUyMzQ1NDc1MDhiNTJmN2JjYzgzOCIsImlhdCI6MTcwMTcxNjgwNSwiZXhwIjoxNzAxNzI0MDA1fQ.5mbJsYd2N8OIrtJ4E4OQDyoyL_EImJEnOiMpH9Uty4Y"
-
-class RegisterResponseDto {
+class RegisterResponseDto extends RegisterResponseEntity {
   RegisterResponseDto({
-    this.success,
-    this.message,
-    this.result,
-    this.tokenActivateAccount,
-    this.error,
-    this.stack,
+    super.success,
+    super.message,
+    super.result,
+    super.tokenActivateAccount,
   });
 
   RegisterResponseDto.fromJson(dynamic json) {
@@ -23,33 +13,78 @@ class RegisterResponseDto {
     message = json['Message'];
     result = json['result'] != null ? UserDto.fromJson(json['result']) : null;
     tokenActivateAccount = json['token_Activate_Account'];
-    error = json['error'];
-    stack = json['stack'];
   }
 
-  bool? success;
-  String? message;
-  UserDto? result;
-  String? tokenActivateAccount;
-  dynamic error;
-  String? stack;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['success'] = success;
     map['Message'] = message;
-    map['error'] = error;
-    map['stack'] = stack;
     if (result != null) {
-      map['result'] = result?.toJson();
+      map['result'] = result != null ? UserDto().toJson() : null;
     }
     map['token_Activate_Account'] = tokenActivateAccount;
     return map;
   }
+}
 
-  AuthResultEntity toAuthResultEntity() {
-    return AuthResultEntity(
-      userEntity: result?.toUserEntity(),
-    );
+class UserDto extends UserEntity {
+  UserDto({
+    super.firstName,
+    super.lastName,
+    super.userName,
+    super.email,
+    super.password,
+    super.dateOfBirth,
+    super.gender,
+    super.isConfirmed,
+    super.status,
+    super.role,
+    super.activationCode,
+    super.createdCodeActivateAccount,
+    super.id,
+    super.createdAt,
+    super.updatedAt,
+    super.v,
+  });
+
+  UserDto.fromJson(dynamic json) {
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    userName = json['userName'];
+    email = json['email'];
+    password = json['password'];
+    dateOfBirth = json['dateOfBirth'];
+    gender = json['gender'];
+    isConfirmed = json['isConfirmed'];
+    status = json['status'];
+    role = json['role'];
+    activationCode = json['activationCode'];
+    createdCodeActivateAccount = json['createdCodeActivateAccount'];
+    id = json['_id'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    v = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['firstName'] = firstName;
+    map['lastName'] = lastName;
+    map['userName'] = userName;
+    map['email'] = email;
+    map['password'] = password;
+    map['dateOfBirth'] = dateOfBirth;
+    map['gender'] = gender;
+    map['isConfirmed'] = isConfirmed;
+    map['status'] = status;
+    map['role'] = role;
+    map['activationCode'] = activationCode;
+    map['createdCodeActivateAccount'] = createdCodeActivateAccount;
+    map['_id'] = id;
+    map['createdAt'] = createdAt;
+    map['updatedAt'] = updatedAt;
+    map['__v'] = v;
+    return map;
   }
 }

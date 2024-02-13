@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/data/di.dart';
-import 'package:missing_finder1/ui/register/RegisterScreenWithEmail.dart';
 import 'package:missing_finder1/ui/register/cubit/RegisterScreenViewModel.dart';
 import 'package:missing_finder1/ui/register/cubit/Register_States.dart';
-import 'package:missing_finder1/utils/dialog_utils.dart';
 
 import '../../utils/TextFieldItem.dart';
+import '../../utils/dialog_utils.dart';
 
 class RegisterScreen extends StatefulWidget {
   static const String routeName = 'register';
@@ -22,16 +21,34 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   RegisterScreenViewModel viewModel =
       RegisterScreenViewModel(registerUseCase: injectRegisterUseCase());
-  DateTime dateTime = DateTime(2023, 2, 1, 10, 20);
   int genderIndex = -1;
+  late String gender;
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return BlocListener<RegisterScreenViewModel, RegisterStates>(
       bloc: viewModel,
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is RegisterLoadingStates) {
+          DialogUtils.showLoading(context, state.LoadingMessage ?? "Waiting");
+        } else if (state is RegisterErrorStates) {
+          DialogUtils.hideLoading(context);
+          DialogUtils.showMessage(context, state.Message!,
+              title: 'Error', posActionName: 'ok');
+        } else if (state is RegisterSuccessStates) {
+          DialogUtils.hideLoading(context);
+          DialogUtils.showMessage(
+            context,
+            'Register Success',
+            title: 'Success',
+            posActionName: 'ok',
+          );
+          //Navigator.pushReplacementNamed(context, TextMessage.routeName);
+        }
+      },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           height: double.infinity,
           width: double.infinity,
@@ -115,6 +132,79 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ],
                             ),
+                            TextFieldItem(
+                              hintText: 'Email Address',
+                              controller: viewModel.email,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'please enter email address';
+                                }
+                                bool emailValid = RegExp(
+                                        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                                    .hasMatch(value);
+                                if (!emailValid) {
+                                  return 'invalid email';
+                                }
+                              },
+                            ),
+                            TextFieldItem(
+                              hintText: 'password',
+                              controller: viewModel.password,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'please enter password';
+                                }
+                                bool emailValid = RegExp(
+                                        r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                                    .hasMatch(value);
+                                if (!emailValid) {
+                                  return 'invalid password';
+                                }
+                              },
+                              keyboardType: TextInputType.visiblePassword,
+                              isObscure: viewModel.isObscure,
+                              suffixIcon: InkWell(
+                                child: viewModel.isObscure
+                                    ? Icon(Icons.visibility_off)
+                                    : Icon(Icons.visibility),
+                                onTap: () {
+                                  if (viewModel.isObscure) {
+                                    viewModel.isObscure = false;
+                                  } else {
+                                    viewModel.isObscure = true;
+                                  }
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                            TextFieldItem(
+                              hintText: 'Confirmation password',
+                              controller: viewModel.confirmationPassword,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'please enter rePassword';
+                                }
+                                if (value != viewModel.password.text) {
+                                  return "password doesn't match";
+                                }
+                                return null;
+                              },
+                              keyboardType: TextInputType.visiblePassword,
+                              isObscure: viewModel.isObscure,
+                              suffixIcon: InkWell(
+                                child: viewModel.isObscure
+                                    ? Icon(Icons.visibility_off)
+                                    : Icon(Icons.visibility),
+                                onTap: () {
+                                  if (viewModel.isObscure) {
+                                    viewModel.isObscure = false;
+                                  } else {
+                                    viewModel.isObscure = true;
+                                  }
+                                  setState(() {});
+                                },
+                              ),
+                            ),
                             SizedBox(
                               height: 5.h,
                             ),
@@ -134,7 +224,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           genderIndex = 0;
-                                          setState(() {});
+                                          setState(() {
+                                            viewModel.gender;
+                                          });
                                         },
                                         child: Container(
                                           padding: EdgeInsets.only(
@@ -150,7 +242,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 : Color(0xFFE8D6D6)
                                                     .withOpacity(0.5),
                                           ),
-                                          child: Text("Male",
+                                          child: Text('Male',
                                               style: theme.textTheme.bodyMedium,
                                               textAlign: TextAlign.center),
                                         ),
@@ -161,7 +253,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       GestureDetector(
                                         onTap: () {
                                           genderIndex = 1;
-                                          setState(() {});
+                                          setState(() {
+                                            viewModel.gender;
+                                          });
                                         },
                                         child: Container(
                                           padding: EdgeInsets.only(
@@ -209,20 +303,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         context: context,
                                         builder: (BuildContext context) =>
                                             SizedBox(
-                                          height: 250,
-                                          width: double.infinity,
-                                          child: CupertinoDatePicker(
-                                            backgroundColor: Colors.white,
-                                            initialDateTime: dateTime,
+                                              height: 250,
+                                              width: double.infinity,
+                                              child: CupertinoDatePicker(
+                                                backgroundColor: Colors.white,
+                                            initialDateTime: viewModel.dateTime,
                                             mode: CupertinoDatePickerMode.date,
                                             onDateTimeChanged:
                                                 (DateTime newTime) {
                                               setState(() {
-                                                dateTime = newTime;
+                                                viewModel.dateTime = newTime;
                                               });
                                             },
                                           ),
-                                        ),
+                                            ),
                                       );
                                     },
                                     child: Container(
@@ -233,11 +327,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         height: 32.h,
                                         decoration: BoxDecoration(
                                           borderRadius:
-                                              BorderRadius.circular(30.r),
+                                          BorderRadius.circular(30.r),
                                           color: Color(0xFFE8D6D6)
                                               .withOpacity(0.5),
                                         ),
-                                        child: Text('${dateTime.day}',
+                                        child: Text('${viewModel.dateTime.day}',
                                             style: theme.textTheme.bodyMedium,
                                             textAlign: TextAlign.center)),
                                   ),
@@ -254,7 +348,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       borderRadius: BorderRadius.circular(30.r),
                                       color: Color(0xFFE8D6D6).withOpacity(0.5),
                                     ),
-                                    child: Text('${dateTime.month}',
+                                    child: Text('${viewModel.dateTime.month}',
                                         style: theme.textTheme.bodyMedium,
                                         textAlign: TextAlign.center),
                                   ),
@@ -271,13 +365,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       borderRadius: BorderRadius.circular(30.r),
                                       color: Color(0xFFE8D6D6).withOpacity(0.5),
                                     ),
-                                    child: Text('${dateTime.year}',
+                                    child: Text('${viewModel.dateTime.year}',
                                         style: theme.textTheme.bodyMedium,
                                         textAlign: TextAlign.center),
                                   ),
                                 ],
                               ),
                             ),
+
                             SizedBox(
                               height: 35.h,
                             ),
@@ -286,12 +381,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   const EdgeInsets.only(left: 50, right: 50),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushReplacementNamed(context,
-                                      RegisterScreenWithEmail.routeName);
+                                  viewModel.register();
                                 },
-                                child: Text('countiue',
+                                child: Text('Sign Up',
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 17)),
+                                        color: Colors.white, fontSize: 15)),
                                 style: ElevatedButton.styleFrom(
                                   fixedSize: Size(224, 48),
                                   backgroundColor:
@@ -303,6 +397,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 ),
                               ),
                             ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.only(left: 50, right: 50),
+                            //   child: ElevatedButton(
+                            //     onPressed: () {
+                            //       Navigator.pushReplacementNamed(context,
+                            //           RegisterScreenWithEmail.routeName);
+                            //     },
+                            //     child: Text('countiue',
+                            //         style: TextStyle(
+                            //             color: Colors.white, fontSize: 17)),
+                            //     style: ElevatedButton.styleFrom(
+                            //       fixedSize: Size(224, 48),
+                            //       backgroundColor:
+                            //           Color(0xFFE8D6D6).withOpacity(0.5),
+                            //       shape: RoundedRectangleBorder(
+                            //         side: BorderSide(color: theme.primaryColor),
+                            //         borderRadius: BorderRadius.circular(25),
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

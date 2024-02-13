@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/data/di.dart';
-import 'package:missing_finder1/ui/register/TextMessage.dart';
+import 'package:missing_finder1/ui/register/activate_account/TextMessage.dart';
 import 'package:missing_finder1/ui/register/picker_file.dart';
-import 'dart:io';
+
 import 'cubit/RegisterScreenViewModel.dart';
 
 class PersonalID extends StatefulWidget {

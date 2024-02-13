@@ -19,7 +19,6 @@ class UserEntity {
     this.userName,
     this.email,
     this.password,
-    this.personalIdCard,
     this.dateOfBirth,
     this.gender,
     this.isConfirmed,
@@ -38,7 +37,6 @@ class UserEntity {
   String? userName;
   String? email;
   String? password;
-  PersonalIdCard? personalIdCard;
   String? dateOfBirth;
   String? gender;
   bool? isConfirmed;
@@ -50,14 +48,4 @@ class UserEntity {
   String? createdAt;
   String? updatedAt;
   int? v;
-}
-
-class PersonalIdCard {
-  PersonalIdCard({
-    this.secureUrl,
-    this.publicId,
-  });
-
-  String? secureUrl;
-  String? publicId;
 }
