@@ -12,16 +12,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.apiManager});
 
   @override
-  Future<Either<BaseError, RegisterResponseEntity>> register(
-      String firstName,
-      String lastName,
-      String email,
-      String password,
-      String confirmPassword,
-      String dateOfBirth,
-      String gender) async {
-    var either = await apiManager.register(firstName, lastName, email, password,
-        confirmPassword, dateOfBirth, gender);
+  Future<Either<BaseError, RegisterResponseEntity>> register({required Map<String,dynamic> registerParameters}) async {
+    var either = await apiManager.register(registerParameters:registerParameters);
     return either.fold((error) {
       return Left(BaseError(errorMessage: error.errorMessage));
     }, (response) {

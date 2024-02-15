@@ -47,4 +47,5 @@ class RegisterRequest {
     map['gender'] = gender;
     return map;
   }
+
 }

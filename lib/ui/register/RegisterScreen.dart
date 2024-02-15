@@ -21,8 +21,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   RegisterScreenViewModel viewModel =
       RegisterScreenViewModel(registerUseCase: injectRegisterUseCase());
-  int genderIndex = -1;
-  late String gender;
+  int ?genderIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -225,7 +224,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         onTap: () {
                                           genderIndex = 0;
                                           setState(() {
-                                            viewModel.gender;
+                                            viewModel.gender.text="Male";
                                           });
                                         },
                                         child: Container(
@@ -254,7 +253,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         onTap: () {
                                           genderIndex = 1;
                                           setState(() {
-                                            viewModel.gender;
+                                            viewModel.gender.text="Female";
                                           });
                                         },
                                         child: Container(
@@ -290,12 +289,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                               child: Row(
                                 children: [
-                                  Text(
-                                    'Date of birth ',
-                                    style: theme.textTheme.titleSmall,
-                                  ),
-                                  SizedBox(
-                                    width: 7.w,
+                                  Expanded(
+                                    child: Text(
+                                      'Date of birth ',
+                                      style: theme.textTheme.titleSmall,
+                                    ),
                                   ),
                                   CupertinoButton(
                                     onPressed: () {
@@ -320,9 +318,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       );
                                     },
                                     child: Container(
-                                        padding: EdgeInsets.only(
-                                          top: 5,
-                                        ),
                                         width: 68.w,
                                         height: 32.h,
                                         decoration: BoxDecoration(
@@ -331,43 +326,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           color: Color(0xFFE8D6D6)
                                               .withOpacity(0.5),
                                         ),
-                                        child: Text('${viewModel.dateTime.day}',
-                                            style: theme.textTheme.bodyMedium,
-                                            textAlign: TextAlign.center)),
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
+                                        child: Center(
+                                          child: Text('${viewModel.dateTime.day}',
+                                              style: theme.textTheme.bodyMedium,
+                                              textAlign: TextAlign.center),
+                                        )),
                                   ),
                                   Container(
-                                    padding: EdgeInsets.only(
-                                      top: 5,
-                                    ),
                                     width: 68.w,
                                     height: 32.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.r),
                                       color: Color(0xFFE8D6D6).withOpacity(0.5),
                                     ),
-                                    child: Text('${viewModel.dateTime.month}',
-                                        style: theme.textTheme.bodyMedium,
-                                        textAlign: TextAlign.center),
+                                    child: Center(
+                                      child: Text('${viewModel.dateTime.month}',
+                                          style: theme.textTheme.bodyMedium,
+                                          textAlign: TextAlign.center),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 10.w,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.only(
-                                      top: 5,
-                                    ),
                                     width: 81.w,
                                     height: 32.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(30.r),
                                       color: Color(0xFFE8D6D6).withOpacity(0.5),
                                     ),
-                                    child: Text('${viewModel.dateTime.year}',
-                                        style: theme.textTheme.bodyMedium,
-                                        textAlign: TextAlign.center),
+                                    child: Center(
+                                      child: Text('${viewModel.dateTime.year}',
+                                          style: theme.textTheme.bodyMedium,
+                                          textAlign: TextAlign.center),
+                                    ),
                                   ),
                                 ],
                               ),

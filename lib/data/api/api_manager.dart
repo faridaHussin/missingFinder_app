@@ -22,39 +22,25 @@ class ApiManager {
   }
 
   Future<Either<BaseError, RegisterResponseDto>> register(
-      String firstName,
-      String lastName,
-      String email,
-      String password,
-      String confirmPassword,
-      String dateOfBirth,
-      String gender) async {
-    final connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile ||
-        connectivityResult == ConnectivityResult.wifi) {
-      Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.registerApi);
-      var requestBody = RegisterRequest(
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-        confirmPassword: confirmPassword,
-        dateOfBirth: dateOfBirth,
-        gender: gender,
-      );
-      print("Request Body => ${requestBody.dateOfBirth}");
-      var response = await http.post(
-          Uri.parse('https://render-missing-finder.onrender.com/auth/register'),
-          body: requestBody.toJson());
+      {required Map<String,dynamic> registerParameters}) async {
 
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        var registerResponse =
-            RegisterResponseDto.fromJson(jsonDecode(response.body));
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+     // Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.registerApi);
+      print("Request Body => $registerParameters");
+      var response = await http.post(
+          Uri.parse("${ApiConstants.baseUrl}${ApiConstants.registerApi}"),
+          body: jsonEncode(registerParameters));
+      print("statusCode=>${response.statusCode}");
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        print("JSon => ${jsonResponse}");
+        print("JSon => ${response.reasonPhrase}");
+        var registerResponse = RegisterResponseDto.fromJson(jsonResponse);
         print("statusCode=>${response.statusCode}");
         print('registerResponse=>${registerResponse.tokenActivateAccount}');
-        SharedPreferencesUtils.saveData(
-            key: 'token',
-            value: jsonEncode(registerResponse.tokenActivateAccount));
+        await SharedPreferencesUtils.saveData(key: 'token', value: registerResponse.tokenActivateAccount);
         return Right(registerResponse);
       } else {
         return Left(BaseError(errorMessage: response.body));

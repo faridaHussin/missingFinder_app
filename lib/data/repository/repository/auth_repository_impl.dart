@@ -12,16 +12,10 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<BaseError, RegisterResponseEntity>> register(
-      String firstName,
-      String lastName,
-      String email,
-      String password,
-      String confirmPassword,
-      String dateOfBirth,
-      String gender) {
-    return remoteDataSource.register(firstName, lastName, email, password,
-        confirmPassword, dateOfBirth, gender);
+  Future<Either<BaseError, RegisterResponseEntity>> register({
+    required Map<String,dynamic> registerParameters
+  }) {
+    return remoteDataSource.register(registerParameters: registerParameters);
   }
 
   @override

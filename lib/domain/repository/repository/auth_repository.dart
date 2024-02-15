@@ -5,15 +5,9 @@ import 'package:missing_finder1/domain/Entity/RegisterResponseEntity.dart';
 import '../../Entity/ActivateAccountEntity.dart';
 
 abstract class AuthRepository {
-  Future<Either<BaseError, RegisterResponseEntity>> register(
-      String firstName,
-      String lastName,
-      String email,
-      String password,
-      String confirmPassword,
-      String dateOfBirth,
-      String gender);
+  Future<Either<BaseError, RegisterResponseEntity>> register({
+    required Map<String,dynamic> registerParameters
+});
 
-  Future<Either<BaseError, ActivateAccountResponseEntity>> activateAccount(
-      String activationCode);
+  Future<Either<BaseError, ActivateAccountResponseEntity>> activateAccount(String activationCode);
 }

@@ -26,15 +26,25 @@ class RegisterScreenViewModel extends Cubit<RegisterStates> {
   void register() async {
     if (forKey.currentState?.validate() == true) {
       emit(RegisterLoadingStates(LoadingMessage: 'Loading'));
-      var either = await registerUseCase.invoke(
-        firstName.text,
-        lastName.text,
-        email.text,
-        password.text,
-        confirmationPassword.text,
-        dateTime.toString(),
-        gender.text,
-      );
+     //  var either = await registerUseCase.invoke(
+     //      {
+     // "firstName":   firstName.text,
+     //    lastName.text,
+     //    email.text,
+     //    password.text,
+     //    confirmationPassword.text,
+     //    dateTime.toString(),
+     //    gender.text,
+     //  });
+      var either = await registerUseCase.invoke(registerParameters: {
+        "firstName":firstName.text,
+        "lastName":  lastName.text,
+        "email":email.text,
+        "password": password.text,
+        "confirmPassword": confirmationPassword.text,
+        "dateOfBirth": dateTime.toString(),
+        "gender":gender.text
+      });
       either.fold(
           (error) => {
                 emit(RegisterErrorStates(Message: error.errorMessage)),

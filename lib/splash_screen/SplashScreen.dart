@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/ui/register/RegisterScreen.dart';
-import 'package:missing_finder1/ui/register/RegisterScreenWithEmail.dart';
 
-import '../ui/smooth_page_indicator/smooth_page_indicator.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = 'splash';
@@ -15,22 +13,16 @@ class SplashScreen extends StatelessWidget {
     var theme = Theme.of(context);
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/background.jpg'),
             fit: BoxFit.fill,
           ),
         ),
+        padding:  EdgeInsets.symmetric(horizontal: 16.0.w,vertical: 16.h),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 380),
-              child: Image.asset('assets/images/logo.png'),
-            ),
-            SizedBox(
-              height: 350.h,
-            ),
+            Expanded(child: Image.asset('assets/images/logo.png')),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

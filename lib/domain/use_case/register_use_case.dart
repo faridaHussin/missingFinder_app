@@ -10,16 +10,8 @@ class RegisterUseCase {
 
   RegisterUseCase({required this.authRepository});
 
-  Future<Either<BaseError, RegisterResponseEntity>> invoke(
-      String firstName,
-      String lastName,
-      String email,
-      String password,
-      String confirmPassword,
-      String dateOfBirth,
-      String gender) {
-    return authRepository.register(firstName, lastName, email, password,
-        confirmPassword, dateOfBirth, gender);
+  Future<Either<BaseError, RegisterResponseEntity>> invoke({required Map<String, dynamic> registerParameters}) {
+    return authRepository.register(registerParameters: registerParameters);
   }
 }
 
