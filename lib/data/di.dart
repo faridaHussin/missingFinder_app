@@ -5,6 +5,10 @@ import 'package:missing_finder1/domain/repository/data_sources/auth_remote_data_
 import 'package:missing_finder1/domain/repository/repository/auth_repository.dart';
 import 'package:missing_finder1/domain/use_case/register_use_case.dart';
 
+ReconfirmAccountUseCase injectReconfirmAccountUseCase() {
+  return ReconfirmAccountUseCase(authRepository: injectAuthRepository());
+}
+
 ActivateAccountUseCase injectActivateAccountUseCase() {
   return ActivateAccountUseCase(authRepository: injectAuthRepository());
 }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:missing_finder1/data/api/base_error.dart';
 import 'package:missing_finder1/domain/Entity/ActivateAccountEntity.dart';
+import 'package:missing_finder1/domain/Entity/ReconfirmResponseEntity.dart';
 import 'package:missing_finder1/domain/Entity/RegisterResponseEntity.dart';
 import 'package:missing_finder1/domain/repository/data_sources/auth_remote_data_source.dart';
 
@@ -12,15 +13,18 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<BaseError, RegisterResponseEntity>> register({
-    required Map<String,dynamic> registerParameters
-  }) {
+  Future<Either<BaseError, RegisterResponseEntity>> register({required Map<String, dynamic> registerParameters}) {
     return remoteDataSource.register(registerParameters: registerParameters);
   }
 
   @override
-  Future<Either<BaseError, ActivateAccountResponseEntity>> activateAccount(
+  Future<Either<BaseError, ActivateAccountEntity>> activateAccount(
       String activationCode) {
     return remoteDataSource.activateAccount(activationCode);
+  }
+
+  @override
+  Future<Either<BaseError, ReconfirmResponseEntity>> reconfirmAccount() {
+    return remoteDataSource.reconfirmAccount();
   }
 }

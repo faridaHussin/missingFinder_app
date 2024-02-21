@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:missing_finder1/data/api/base_error.dart';
+import 'package:missing_finder1/domain/Entity/ReconfirmResponseEntity.dart';
 import 'package:missing_finder1/domain/Entity/RegisterResponseEntity.dart';
 import 'package:missing_finder1/domain/repository/repository/auth_repository.dart';
 
@@ -20,9 +21,19 @@ class ActivateAccountUseCase {
 
   ActivateAccountUseCase({required this.authRepository});
 
-  Future<Either<BaseError, ActivateAccountResponseEntity>> invoke(
+  Future<Either<BaseError, ActivateAccountEntity>> invoke(
     String activationCode,
   ) {
     return authRepository.activateAccount(activationCode);
+  }
+}
+
+class ReconfirmAccountUseCase {
+  AuthRepository authRepository;
+
+  ReconfirmAccountUseCase({required this.authRepository});
+
+  Future<Either<BaseError, ReconfirmResponseEntity>> invoke() {
+    return authRepository.reconfirmAccount();
   }
 }

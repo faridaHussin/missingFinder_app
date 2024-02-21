@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/data/di.dart';
-import 'package:missing_finder1/ui/register/activate_account/TextMessage.dart';
+
 import 'package:missing_finder1/ui/register/picker_file.dart';
 
 import 'cubit/RegisterScreenViewModel.dart';
@@ -99,8 +99,8 @@ class _PersonalIDState extends State<PersonalID> {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(
-                      context, TextMessage.routeName);
+                  // Navigator.pushReplacementNamed(
+                  //     context);
                 },
                 child: Text('COUNTINE',
                     style: TextStyle(color: Colors.black, fontSize: 17)),

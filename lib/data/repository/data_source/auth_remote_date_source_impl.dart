@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:missing_finder1/data/api/api_manager.dart';
 import 'package:missing_finder1/data/api/base_error.dart';
 import 'package:missing_finder1/domain/Entity/ActivateAccountEntity.dart';
+import 'package:missing_finder1/domain/Entity/ReconfirmResponseEntity.dart';
 import 'package:missing_finder1/domain/Entity/RegisterResponseEntity.dart';
 
 import '../../../domain/repository/data_sources/auth_remote_data_source.dart';
@@ -22,13 +23,23 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<Either<BaseError, ActivateAccountResponseEntity>> activateAccount(
+  Future<Either<BaseError, ActivateAccountEntity>> activateAccount(
       String activationCode) async {
     var either = await apiManager.activateAccount(activationCode);
     return either.fold((error) {
       return Left(BaseError(errorMessage: error.errorMessage));
     }, (response) {
-      return Right(response.toActivateAccountResponseEntity());
+      return Right(response);
+    });
+  }
+
+  @override
+  Future<Either<BaseError, ReconfirmResponseEntity>> reconfirmAccount() async {
+    var either = await apiManager.reconfirmAccount();
+    return either.fold((error) {
+      return Left(BaseError(errorMessage: error.errorMessage));
+    }, (response) {
+      return Right(response);
     });
   }
 }

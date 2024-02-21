@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/splash_screen/SplashScreen.dart';
 import 'package:missing_finder1/ui/home/Home_Screen.dart';
-import 'package:missing_finder1/ui/register/EmailMessage.dart';
+import 'package:missing_finder1/ui/register/reconfirmAccount/ReconfirmAccount.dart';
 import 'package:missing_finder1/ui/register/Personal_ID.dart';
 import 'package:missing_finder1/ui/register/RegisterScreen.dart';
-import 'package:missing_finder1/ui/register/activate_account/TextMessage.dart';
+import 'package:missing_finder1/ui/register/activate_account/ActivateAccount.dart';
 import 'package:missing_finder1/ui/smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:missing_finder1/utils/Application_Theme.dart';
 import 'package:missing_finder1/utils/shared_preferences_utils.dart';
@@ -43,8 +44,8 @@ class MyApp extends StatelessWidget {
             RegisterScreen.routeName: (context) => RegisterScreen(),
             OnBoarging.routeName: (context) => OnBoarging(),
             PersonalID.routeName: (context) => PersonalID(),
-            TextMessage.routeName: (context) => TextMessage(),
-            EmailMessage.routeName: (context) => EmailMessage(),
+            ActivateAccount.routeName: (context) => ActivateAccount(),
+            ReconfirmAccount.routeName: (context) => ReconfirmAccount(),
             HomeScreen.routeName: (context) => HomeScreen(),
           },
         );

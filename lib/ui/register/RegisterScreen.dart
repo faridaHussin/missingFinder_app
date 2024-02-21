@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/data/di.dart';
+import 'package:missing_finder1/ui/register/activate_account/ActivateAccount.dart';
 import 'package:missing_finder1/ui/register/cubit/RegisterScreenViewModel.dart';
 import 'package:missing_finder1/ui/register/cubit/Register_States.dart';
 
@@ -39,12 +40,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
           DialogUtils.hideLoading(context);
           DialogUtils.showMessage(
             context,
-            'Register Success',
-            title: 'Success',
+            state.registerResponseEntity.message!,
             posActionName: 'ok',
           );
-          //Navigator.pushReplacementNamed(context, TextMessage.routeName);
         }
+        Navigator.pushReplacementNamed(context, ActivateAccount.routeName);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
