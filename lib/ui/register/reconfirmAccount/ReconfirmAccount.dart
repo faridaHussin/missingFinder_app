@@ -3,46 +3,55 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/data/di.dart';
-import 'package:missing_finder1/ui/register/EmailMessage.dart';
+import 'package:missing_finder1/ui/register/reconfirmAccount/cubit/Reconfirm_States.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../utils/dialog_utils.dart';
-import 'cubit/ActivateScreenViewModel.dart';
-import 'cubit/Activate_States.dart';
+import '../activate_account/cubit/ActivateScreenViewModel.dart';
+import 'cubit/ReconfirmScreenViewModel.dart';
 
-class TextMessage extends StatelessWidget {
-  static const String routeName = 'Message';
+class ReconfirmAccount extends StatefulWidget {
+  static const String routeName = 'EmailMessage';
 
-  TextMessage({super.key});
+  ReconfirmAccount({super.key});
 
-  ActivateScreenViewModel viewModel = ActivateScreenViewModel(
-      activateAccountUseCase: injectActivateAccountUseCase());
+  @override
+  State<ReconfirmAccount> createState() => _ReconfirmAccountState();
+}
+
+class _ReconfirmAccountState extends State<ReconfirmAccount> {
+  // late ActivateScreenViewModel activateViewModel;
+  // @override
+  // void initState() {
+  //   activateViewModel = BlocProvider.of<ActivateScreenViewModel>(context);
+  // }
+
+  ReconfirmScreenViewModel viewModel = ReconfirmScreenViewModel(
+      reconfirmAccountUseCase: injectReconfirmAccountUseCase());
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return BlocListener<ActivateScreenViewModel, ActivateStates>(
+    return BlocListener<ReconfirmScreenViewModel, ReconfirmStates>(
       listener: (context, state) => {
-        if (state is ActivateLoadingStates)
+        if (state is ReconfirmLoadingStates)
           {
             DialogUtils.showLoading(context, state.LoadingMessage ?? "Waiting"),
           }
-        else if (state is ActivateErrorStates)
+        else if (state is ReconfirmErrorStates)
           {
             DialogUtils.hideLoading(context),
-            DialogUtils.showMessage(context, state.ErrorMessage!,
+            DialogUtils.showMessage(context, state.Message!,
                 title: 'Error', posActionName: 'ok'),
           }
-        else if (state is ActivateSuccessStates)
+        else if (state is ReconfirmSuccessStates)
           {
             DialogUtils.hideLoading(context),
-            DialogUtils.showMessage(context, 'Activate Account Success',
-                title: 'Success', posActionName: 'ok'),
+            DialogUtils.showMessage(
+                context, state.reconfirmResponseEntity.message!,
+                posActionName: 'ok'),
           },
-
-        // Navigator.pushReplacementNamed(context, HomeScreen.routeName),
       },
-      bloc: viewModel,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -59,18 +68,19 @@ class TextMessage extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 120),
-                  child: Text(
-                      "Enter the confirmation\ncode from the text\nmessage ",
+                  child: Text("Enter the code\nfrom your\nemail ",
                       style: theme.textTheme.bodyLarge),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 15,
                   ),
-                  child: Text("Enter the code in the SMS sent to",
+                  child: Text("Enter the code from the email sent to",
                       style: theme.textTheme.bodyMedium),
                 ),
-                Text('1008321565 (Egypt)', style: theme.textTheme.bodyMedium),
+                Text('souadAshraf758@gmail.com',
+                    style: theme.textTheme.bodyMedium!
+                        .copyWith(color: Colors.black)),
                 SizedBox(
                   height: 50.h,
                 ),
@@ -129,7 +139,7 @@ class TextMessage extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 50),
                         child: ElevatedButton(
                           onPressed: () {
-                            viewModel.activateAccount();
+                            // activateViewModel.activateAccount();
                           },
                           child: Text('Verify Code',
                               style:
@@ -149,8 +159,7 @@ class TextMessage extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 20),
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, EmailMessage.routeName);
+                            viewModel.reconfirmAccount();
                           },
                           child: Text('Resend Code',
                               style: theme.textTheme.titleSmall!

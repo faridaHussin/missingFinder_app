@@ -24,8 +24,7 @@ class ActivateScreenViewModel extends Cubit<ActivateStates> {
                 emit(ActivateErrorStates(ErrorMessage: error.errorMessage)),
               },
           (response) => {
-                emit(ActivateSuccessStates(
-                    activateAccountResponseEntity: response)),
+                emit(ActivateSuccessStates(activateAccountEntity: response)),
               });
     }
   }

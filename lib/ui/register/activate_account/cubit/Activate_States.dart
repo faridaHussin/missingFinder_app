@@ -17,7 +17,7 @@ class ActivateErrorStates extends ActivateStates {
 }
 
 class ActivateSuccessStates extends ActivateStates {
-  ActivateAccountResponseEntity activateAccountResponseEntity;
+  ActivateAccountEntity activateAccountEntity;
 
-  ActivateSuccessStates({required this.activateAccountResponseEntity});
+  ActivateSuccessStates({required this.activateAccountEntity});
 }

@@ -1,15 +1,9 @@
-class ActivateAccountResponseEntity {
-  ActivateAccountResponseEntity({
-    this.success,
+class ActivateAccountEntity {
+  ActivateAccountEntity({
     this.message,
-    this.error,
-    this.stack,
-    this.tokenActivateAccount,
   });
 
-  bool? success;
   String? message;
-  dynamic error;
-  String? stack;
-  String? tokenActivateAccount;
+
+
 }

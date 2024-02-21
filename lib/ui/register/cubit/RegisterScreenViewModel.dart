@@ -19,18 +19,22 @@ class RegisterScreenViewModel extends Cubit<RegisterStates> {
   TextEditingController password = TextEditingController();
   TextEditingController confirmationPassword = TextEditingController();
   TextEditingController gender = TextEditingController();
-  DateTime dateTime = DateTime(2023, 2, 1, 10, 20);
+  DateTime dateTime = DateTime(
+    2023,
+    2,
+    1,
+  );
 
   bool isObscure = true;
 
   void register() async {
     if (forKey.currentState?.validate() == true) {
       emit(RegisterLoadingStates(LoadingMessage: 'Loading'));
-     //  var either = await registerUseCase.invoke(
-     //      {
-     // "firstName":   firstName.text,
-     //    lastName.text,
-     //    email.text,
+      //  var either = await registerUseCase.invoke(
+      //      {
+      // "firstName":   firstName.text,
+      //    lastName.text,
+      //    email.text,
      //    password.text,
      //    confirmationPassword.text,
      //    dateTime.toString(),
