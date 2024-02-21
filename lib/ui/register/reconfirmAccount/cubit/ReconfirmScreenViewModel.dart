@@ -13,17 +13,18 @@ class ReconfirmScreenViewModel extends Cubit<ReconfirmStates> {
 
   TextEditingController pinCodeTextField = TextEditingController();
 
-  void reconfirmAccount() async {
-    if (forKey.currentState?.validate() == true) {
-      emit(ReconfirmLoadingStates(LoadingMessage: 'Loading'));
-      var either = await reconfirmAccountUseCase.invoke();
-      either.fold(
-          (error) => {
-                emit(ReconfirmErrorStates(Message: error.errorMessage)),
-              },
-          (response) => {
-                emit(ReconfirmSuccessStates(reconfirmResponseEntity: response)),
-              });
-    }
-  }
+// void reconfirmAccount() async {
+//   if (forKey.currentState?.validate() == true) {
+//     emit(ReconfirmLoadingStates(LoadingMessage: 'Loading'));
+//     print("reconfirm");
+//     var either = await reconfirmAccountUseCase.invoke();
+//     either.fold(
+//         (error) => {
+//               emit(ReconfirmErrorStates(Message: error.errorMessage)),
+//             },
+//         (response) => {
+//               emit(ReconfirmSuccessStates(reconfirmResponseEntity: response)),
+//             });
+//   }
+// }
 }

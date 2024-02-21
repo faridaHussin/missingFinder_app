@@ -3,13 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/data/di.dart';
-import 'package:missing_finder1/domain/Entity/ActivateAccountEntity.dart';
-import 'package:missing_finder1/ui/register/reconfirmAccount/ReconfirmAccount.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../utils/dialog_utils.dart';
 import '../../home/Home_Screen.dart';
-import '../reconfirmAccount/cubit/ReconfirmScreenViewModel.dart';
 import 'cubit/ActivateScreenViewModel.dart';
 import 'cubit/Activate_States.dart';
 
@@ -23,43 +20,44 @@ class ActivateAccount extends StatefulWidget {
 }
 
 class _ActivateAccountState extends State<ActivateAccount> {
-  late ActivateScreenViewModel activateViewModel;
-  late ReconfirmScreenViewModel reconfirmViewModel;
-
-  @override
-  void initState() {
-    activateViewModel = ActivateScreenViewModel(
+  // late ActivateScreenViewModel activateViewModel;
+  // late ReconfirmScreenViewModel reconfirmViewModel;
+  ActivateScreenViewModel activateViewModel = ActivateScreenViewModel(
       activateAccountUseCase: injectActivateAccountUseCase(),
-    );
-    reconfirmViewModel = ReconfirmScreenViewModel(
-        reconfirmAccountUseCase: injectReconfirmAccountUseCase());
-  }
+      reconfirmAccountUseCase: injectReconfirmAccountUseCase());
+
+  // @override
+  // void initState() {
+  //   activateViewModel = ActivateScreenViewModel(
+  //     activateAccountUseCase: injectActivateAccountUseCase(),
+  //   );
+  //   reconfirmViewModel = ReconfirmScreenViewModel(
+  //       reconfirmAccountUseCase: injectReconfirmAccountUseCase());
+  // }
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider<ActivateScreenViewModel>(
-            create: (context) => activateViewModel,
-          ),
-          BlocProvider<ReconfirmScreenViewModel>(
-            create: (context) => reconfirmViewModel,
-          ),
-        ],
-        child: BlocListener<ActivateScreenViewModel, ActivateStates>(
-          listener: (context, state) =>
+    // return MultiBlocProvider(
+    //     providers: [
+    // BlocProvider<ActivateScreenViewModel>(
+    // create: (context) => activateViewModel,
+    // ),
+    // BlocProvider<ReconfirmScreenViewModel>(
+    // create: (context) => reconfirmViewModel,
+    // ),
+    // ],
+    // child:
+    return BlocListener<ActivateScreenViewModel, ActivateStates>(
+      listener: (context, state) => {
+        if (state is ActivateLoadingStates)
           {
-            if (state is ActivateLoadingStates)
-              {
-                DialogUtils.showLoading(
-                    context, state.LoadingMessage ?? "Waiting"),
-              }
-            else
-              if (state is ActivateErrorStates)
-                {
-                  DialogUtils.hideLoading(context),
+            DialogUtils.showLoading(context, state.LoadingMessage ?? "Waiting"),
+          }
+        else if (state is ActivateErrorStates)
+          {
+            DialogUtils.hideLoading(context),
                   DialogUtils.showMessage(context, state.ErrorMessage!,
                       title: 'Error', posActionName: 'ok'),
                 }
@@ -184,8 +182,8 @@ class _ActivateAccountState extends State<ActivateAccount> {
                             padding: const EdgeInsets.only(top: 20),
                             child: ElevatedButton(
                               onPressed: () {
-                                reconfirmViewModel.reconfirmAccount();
-                                // Navigator.pushReplacementNamed(context,ReconfirmAccount.routeName);
+                                activateViewModel.reconfirmAccount();
+                            // Navigator.pushReplacementNamed(context,ReconfirmAccount.routeName);
                               },
                               child: Text('Resend Code',
                                   style: theme.textTheme.titleSmall!
@@ -201,16 +199,16 @@ class _ActivateAccountState extends State<ActivateAccount> {
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                               ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

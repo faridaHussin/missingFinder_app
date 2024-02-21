@@ -1,4 +1,4 @@
-import '../../../../domain/Entity/ReconfirmResponseEntity.dart';
+
 
 abstract class ReconfirmStates {}
 
@@ -16,8 +16,8 @@ class ReconfirmErrorStates extends ReconfirmStates {
   ReconfirmErrorStates({this.Message});
 }
 
-class ReconfirmSuccessStates extends ReconfirmStates {
-  ReconfirmResponseEntity reconfirmResponseEntity;
-
-  ReconfirmSuccessStates({required this.reconfirmResponseEntity});
-}
+// class ReconfirmSuccessStates extends ReconfirmStates {
+//   ReconfirmResponseEntity reconfirmResponseEntity;
+//
+//   ReconfirmSuccessStates({required this.reconfirmResponseEntity});
+// }

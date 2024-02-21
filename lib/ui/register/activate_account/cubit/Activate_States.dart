@@ -1,4 +1,5 @@
 import '../../../../domain/Entity/ActivateAccountEntity.dart';
+import '../../../../domain/Entity/ReconfirmResponseEntity.dart';
 
 abstract class ActivateStates {}
 
@@ -20,4 +21,10 @@ class ActivateSuccessStates extends ActivateStates {
   ActivateAccountEntity activateAccountEntity;
 
   ActivateSuccessStates({required this.activateAccountEntity});
+}
+
+class ReconfirmSuccessStates extends ActivateStates {
+  ReconfirmResponseEntity reconfirmResponseEntity;
+
+  ReconfirmSuccessStates({required this.reconfirmResponseEntity});
 }

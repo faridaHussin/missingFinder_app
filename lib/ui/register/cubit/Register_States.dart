@@ -5,7 +5,7 @@ abstract class RegisterStates {}
 class RegisterInitialStates extends RegisterStates {}
 
 class RegisterLoadingStates extends RegisterStates {
-  String? LoadingMessage;
+  final String? LoadingMessage;
 
   RegisterLoadingStates({this.LoadingMessage});
 }

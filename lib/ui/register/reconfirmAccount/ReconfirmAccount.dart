@@ -3,12 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/data/di.dart';
-import 'package:missing_finder1/ui/register/reconfirmAccount/cubit/Reconfirm_States.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../utils/dialog_utils.dart';
 import '../activate_account/cubit/ActivateScreenViewModel.dart';
-import 'cubit/ReconfirmScreenViewModel.dart';
+import '../activate_account/cubit/Activate_States.dart';
 
 class ReconfirmAccount extends StatefulWidget {
   static const String routeName = 'EmailMessage';
@@ -21,27 +20,43 @@ class ReconfirmAccount extends StatefulWidget {
 
 class _ReconfirmAccountState extends State<ReconfirmAccount> {
   // late ActivateScreenViewModel activateViewModel;
-  // @override
+  // late ReconfirmScreenViewModel reconfirmViewModel;
+  @override
   // void initState() {
-  //   activateViewModel = BlocProvider.of<ActivateScreenViewModel>(context);
+  //   activateViewModel = ActivateScreenViewModel(
+  //     activateAccountUseCase: injectActivateAccountUseCase(), reconfirmAccountUseCase: null,
+  //   );
+  //   reconfirmViewModel = ReconfirmScreenViewModel(
+  //       reconfirmAccountUseCase: injectReconfirmAccountUseCase());
   // }
 
-  ReconfirmScreenViewModel viewModel = ReconfirmScreenViewModel(
+  ActivateScreenViewModel activateViewModel = ActivateScreenViewModel(
+      activateAccountUseCase: injectActivateAccountUseCase(),
       reconfirmAccountUseCase: injectReconfirmAccountUseCase());
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return BlocListener<ReconfirmScreenViewModel, ReconfirmStates>(
+    // return MultiBlocProvider(
+    //     providers: [
+    //     BlocProvider<ActivateScreenViewModel>(
+    //     create: (context) => activateViewModel,
+    // ),
+    // BlocProvider<ReconfirmScreenViewModel>(
+    // create: (context) => reconfirmViewModel,
+    // ),
+    // ],
+    //child:
+    return BlocListener<ActivateScreenViewModel, ActivateStates>(
       listener: (context, state) => {
-        if (state is ReconfirmLoadingStates)
+        if (state is ActivateLoadingStates)
           {
             DialogUtils.showLoading(context, state.LoadingMessage ?? "Waiting"),
           }
-        else if (state is ReconfirmErrorStates)
+        else if (state is ActivateErrorStates)
           {
             DialogUtils.hideLoading(context),
-            DialogUtils.showMessage(context, state.Message!,
+            DialogUtils.showMessage(context, state.ErrorMessage!,
                 title: 'Error', posActionName: 'ok'),
           }
         else if (state is ReconfirmSuccessStates)
@@ -52,6 +67,7 @@ class _ReconfirmAccountState extends State<ReconfirmAccount> {
                 posActionName: 'ok'),
           },
       },
+      bloc: activateViewModel,
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: Container(
@@ -98,7 +114,7 @@ class _ReconfirmAccountState extends State<ReconfirmAccount> {
                           cursorColor: Colors.black,
                           obscureText: true,
                           onChanged: (value) {
-                            viewModel.pinCodeTextField;
+                            activateViewModel.pinCodeTextField;
                           },
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly
@@ -139,7 +155,7 @@ class _ReconfirmAccountState extends State<ReconfirmAccount> {
                         padding: const EdgeInsets.only(top: 50),
                         child: ElevatedButton(
                           onPressed: () {
-                            // activateViewModel.activateAccount();
+                            activateViewModel.activateAccount();
                           },
                           child: Text('Verify Code',
                               style:
@@ -159,7 +175,7 @@ class _ReconfirmAccountState extends State<ReconfirmAccount> {
                         padding: const EdgeInsets.only(top: 20),
                         child: ElevatedButton(
                           onPressed: () {
-                            viewModel.reconfirmAccount();
+                            activateViewModel.reconfirmAccount();
                           },
                           child: Text('Resend Code',
                               style: theme.textTheme.titleSmall!

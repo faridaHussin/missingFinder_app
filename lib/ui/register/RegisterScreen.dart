@@ -43,8 +43,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             state.registerResponseEntity.message!,
             posActionName: 'ok',
           );
+          Navigator.pushReplacementNamed(context, ActivateAccount.routeName);
         }
-        Navigator.pushReplacementNamed(context, ActivateAccount.routeName);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,

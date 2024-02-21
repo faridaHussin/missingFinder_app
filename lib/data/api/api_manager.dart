@@ -62,11 +62,14 @@ class ApiManager {
         connectivityResult == ConnectivityResult.wifi) {
       String token = SharedPreferencesUtils.getData('token').toString();
       var response = await http.post(
-          Uri.parse("${ApiConstants.baseUrl}${ApiConstants.registerApi}"),
+          Uri.parse(
+              "${ApiConstants.baseUrl}${ApiConstants.activateAccountApi}"),
           body: {
             "activationCode": activationCode,
           },
           headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json",
             'token': token,
           });
 
@@ -91,8 +94,11 @@ class ApiManager {
         connectivityResult == ConnectivityResult.wifi) {
       String token = SharedPreferencesUtils.getData('token').toString();
       var response = await http.post(
-          Uri.parse("${ApiConstants.baseUrl}${ApiConstants.registerApi}"),
+          Uri.parse(
+              "${ApiConstants.baseUrl}${ApiConstants.reconfirmAccountApi}"),
           headers: {
+            "Content-type": "application/json",
+            "Accept": "application/json",
             'token': token,
           });
       var reconfirmAccountResponse =
