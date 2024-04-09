@@ -6,7 +6,7 @@ import 'package:missing_finder1/data/di.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../utils/dialog_utils.dart';
-import '../../home/Home_Screen.dart';
+import '../../home/home_layout/Home_Screen.dart';
 import 'cubit/ActivateScreenViewModel.dart';
 import 'cubit/Activate_States.dart';
 

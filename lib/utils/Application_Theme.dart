@@ -5,25 +5,48 @@ class Application_Theme {
   static ThemeData lightTheme = ThemeData(
     primaryColor: Color(0xFFE8D6D6).withOpacity(0.5),
     colorScheme: ColorScheme.fromSeed(
-        primary: Color(0xFFD6CACA),
-        seedColor: Color(0xFFE8D6D6).withOpacity(0.5),
-        onSecondary: Color(0xFFFAF5F2).withOpacity(0.80),
-        onPrimary: Color(0xFF987B71).withOpacity(0.5),
-        onBackground: Color(0xFFF8F8F8),
-        onPrimaryContainer: Color(0xFFB7935F).withOpacity(0.9)),
+      seedColor: Color(0xFFE8D6D6).withOpacity(0.5),
+      onSecondaryContainer: Color(0xFFFFFFFF).withOpacity(0.10),
+      primary: Color(0xFFD6CACA),
+      onSecondary: Color(0xFFFAF5F2).withOpacity(0.80),
+      onPrimary: Color(0xFF987B71),
+      secondary: Color(0xFF707070).withOpacity(0.80),
+      background: Color(0xFFF8F8F8),
+      onBackground: Color(0xFFA81A1A),
+      onPrimaryContainer: Color(0xFFB7935F).withOpacity(0.9),
+
+    ),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      centerTitle: true,
-      titleTextStyle: GoogleFonts.elMessiri(
-        fontSize: 30,
+      titleTextStyle: TextStyle(
+        color: Color(0xFFA81A1A),
+        fontSize: 24,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
       ),
       iconTheme: IconThemeData(
-        color: Colors.black,
+        color: Colors.white,
       ),
     ),
+
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: Color(0xFF836548).withOpacity(1.0),
+      selectedIconTheme: IconThemeData(
+        size: 32,
+        color: Colors.black,
+      ),
+      selectedItemColor: Colors.black,
+      unselectedIconTheme: IconThemeData(
+        size: 28,
+        color: Color(0xB6FFFFFF),
+      ),
+      unselectedItemColor: Color(0xB6FFFFFF),
+
+    ),
+
     textTheme: TextTheme(
       titleLarge: TextStyle(
         fontSize: 40,
@@ -44,6 +67,7 @@ class Application_Theme {
       bodySmall: TextStyle(
         fontSize: 15,
         color: Colors.white,
+        fontWeight: FontWeight.w500,
       ),
     ),
   );

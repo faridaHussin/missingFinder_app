@@ -2,7 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:missing_finder1/splash_screen/SplashScreen.dart';
-import 'package:missing_finder1/ui/home/Home_Screen.dart';
+import 'package:missing_finder1/ui/home/home_layout/Home_Screen.dart';
+import 'package:missing_finder1/ui/home/home_layout/Home_layout.dart';
+import 'package:missing_finder1/ui/home/Report/ReportScreen.dart';
+import 'package:missing_finder1/ui/home/Report/ReportScreenPart2.dart';
+import 'package:missing_finder1/ui/home/listOfMissigPersons/ListOfMissing.dart';
+import 'package:missing_finder1/ui/home/report/ResponseReportScreen.dart';
+import 'package:missing_finder1/ui/home/searchTab/ResponseFoundMatchSearch.dart';
+import 'package:missing_finder1/ui/home/searchTab/ResponseSearchScreen.dart';
+import 'package:missing_finder1/ui/home/searchTab/ResultDetails.dart';
+import 'package:missing_finder1/ui/home/searchTab/ResultScreen.dart';
+import 'package:missing_finder1/ui/home/searchTab/SearchScreen.dart';
+import 'package:missing_finder1/ui/home/volunteer/VolunteerScreen.dart';
+import 'package:missing_finder1/ui/home/volunteer/VolunteerScreenPart2.dart';
 import 'package:missing_finder1/ui/register/reconfirmAccount/ReconfirmAccount.dart';
 import 'package:missing_finder1/ui/register/Personal_ID.dart';
 import 'package:missing_finder1/ui/register/RegisterScreen.dart';
@@ -46,7 +58,20 @@ class MyApp extends StatelessWidget {
             PersonalID.routeName: (context) => PersonalID(),
             ActivateAccount.routeName: (context) => ActivateAccount(),
             ReconfirmAccount.routeName: (context) => ReconfirmAccount(),
+            HomeLayout.routeName: (context) => HomeLayout(),
             HomeScreen.routeName: (context) => HomeScreen(),
+            ReportScreen.routeName: (context) => ReportScreen(),
+            ReportScreenPart2.routeName: (context) => ReportScreenPart2(),
+            VolunteerScreen.routeName: (context) => VolunteerScreen(),
+            VolunteerScreenPart2.routeName: (context) => VolunteerScreenPart2(),
+            ListOfMissing.routeName: (context) => ListOfMissing(),
+            SearchScreen.routeName: (context) => SearchScreen(),
+            ResponseReportScreen.routeName: (context) => ResponseReportScreen(),
+            ResponseSearchScreen.routeName: (context) => ResponseSearchScreen(),
+            ResponseFoundMatchSearch.routeName: (context) =>
+                ResponseFoundMatchSearch(),
+            ResultScreen.routeName: (context) => ResultScreen(),
+            ResultDetails.routeName: (context) => ResultDetails(),
           },
         );
       },

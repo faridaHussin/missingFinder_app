@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TextFieldItem extends StatelessWidget {
+class TextFieldDescription extends StatelessWidget {
   final FormFieldValidator<String>? validator;
   TextEditingController? controller;
   String hintText;
@@ -9,7 +9,7 @@ class TextFieldItem extends StatelessWidget {
   final Widget? suffixIcon;
   TextInputType? keyboardType;
 
-  TextFieldItem({
+  TextFieldDescription({
     this.validator,
     this.controller,
     required this.hintText,
@@ -28,17 +28,19 @@ class TextFieldItem extends StatelessWidget {
               EdgeInsets.only(top: 5.h, bottom: 5.h, left: 10.w, right: 10.w),
           child: TextFormField(
             decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 40, horizontal: 10),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFE8D6D6)),
-                  borderRadius: BorderRadius.circular(28.r),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
                 fillColor: Color(0xFFE8D6D6).withOpacity(0.5),
                 filled: true,
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFE8D6D6)),
-                    borderRadius: BorderRadius.circular(28.r)),
+                    borderRadius: BorderRadius.circular(20.r)),
                 errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(28.r),
+                  borderRadius: BorderRadius.circular(20.r),
                 ),
                 hintText: hintText,
                 hintStyle: theme.textTheme.bodySmall,
