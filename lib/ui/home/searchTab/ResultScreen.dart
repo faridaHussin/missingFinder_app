@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:missing_finder1/ui/widgets/ButtonWidget.dart';
-import 'package:missing_finder1/ui/widgets/ContainerWidget.dart';
 
+import '../widgets/ButtonWidget.dart';
+import '../widgets/ContainerWidget.dart';
 import 'ResultDetails.dart';
 
 class ResultScreen extends StatelessWidget {
