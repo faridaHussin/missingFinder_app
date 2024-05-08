@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:missing_finder1/splash_screen/ChooseLanguageScreen.dart';
 import 'package:missing_finder1/splash_screen/SplashScreen.dart';
-import 'package:missing_finder1/ui/home/home_layout/Home_Screen.dart';
-import 'package:missing_finder1/ui/home/home_layout/Home_layout.dart';
+import 'package:missing_finder1/splash_screen/smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:missing_finder1/ui/home/Report/ReportScreen.dart';
 import 'package:missing_finder1/ui/home/Report/ReportScreenPart2.dart';
+import 'package:missing_finder1/ui/home/home_layout/ChangePasswordScreen.dart';
+import 'package:missing_finder1/ui/home/home_layout/DeleteAccountScreen.dart';
+import 'package:missing_finder1/ui/home/home_layout/DeleteAccountScreen2.dart';
+import 'package:missing_finder1/ui/home/home_layout/Home_Screen.dart';
+import 'package:missing_finder1/ui/home/home_layout/Home_layout.dart';
 import 'package:missing_finder1/ui/home/listOfMissigPersons/ListOfMissing.dart';
 import 'package:missing_finder1/ui/home/report/ResponseReportScreen.dart';
 import 'package:missing_finder1/ui/home/searchTab/ResponseFoundMatchSearch.dart';
@@ -15,11 +19,10 @@ import 'package:missing_finder1/ui/home/searchTab/ResultScreen.dart';
 import 'package:missing_finder1/ui/home/searchTab/SearchScreen.dart';
 import 'package:missing_finder1/ui/home/volunteer/VolunteerScreen.dart';
 import 'package:missing_finder1/ui/home/volunteer/VolunteerScreenPart2.dart';
-import 'package:missing_finder1/ui/register/reconfirmAccount/ReconfirmAccount.dart';
 import 'package:missing_finder1/ui/register/Personal_ID.dart';
 import 'package:missing_finder1/ui/register/RegisterScreen.dart';
 import 'package:missing_finder1/ui/register/activate_account/ActivateAccount.dart';
-import 'package:missing_finder1/ui/smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:missing_finder1/ui/register/reconfirmAccount/ReconfirmAccount.dart';
 import 'package:missing_finder1/utils/Application_Theme.dart';
 import 'package:missing_finder1/utils/shared_preferences_utils.dart';
 
@@ -53,8 +56,12 @@ class MyApp extends StatelessWidget {
           initialRoute: SplashScreen.routeName,
           routes: {
             SplashScreen.routeName: (context) => SplashScreen(),
+            ChooseLanguageScreen.routeName: (context) => ChooseLanguageScreen(),
+            ChangePasswordScreen.routeName: (context) => ChangePasswordScreen(),
+            DeleteAccountScreen.routeName: (context) => DeleteAccountScreen(),
+            DeleteAccountScreen2.routeName: (context) => DeleteAccountScreen2(),
             RegisterScreen.routeName: (context) => RegisterScreen(),
-            OnBoarging.routeName: (context) => OnBoarging(),
+            DescriptionScreen.routeName: (context) => DescriptionScreen(),
             PersonalID.routeName: (context) => PersonalID(),
             ActivateAccount.routeName: (context) => ActivateAccount(),
             ReconfirmAccount.routeName: (context) => ReconfirmAccount(),

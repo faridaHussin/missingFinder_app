@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:missing_finder1/ui/home/home_layout/Home_Screen.dart';
-import 'package:missing_finder1/ui/home/Report/ReportScreen.dart';
-import 'package:missing_finder1/ui/register/RegisterScreen.dart';
 
-import '../ui/home/home_layout/Home_layout.dart';
-
+import 'ChooseLanguageScreen.dart';
 
 class SplashScreen extends StatelessWidget {
   static const String routeName = 'splash';
@@ -33,7 +29,7 @@ class SplashScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(
-                        context, HomeLayout.routeName);
+                        context, ChooseLanguageScreen.routeName);
                   },
                   child: Text(
                     'about us',

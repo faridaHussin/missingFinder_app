@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:missing_finder1/ui/home/home_layout/Home_layout.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../register/RegisterScreen.dart';
 import 'Page1.dart';
 
-class OnBoarging extends StatefulWidget {
-  static const String routeName = 'onboarding';
+class DescriptionScreen extends StatefulWidget {
+  static const String routeName = 'description';
 
-  const OnBoarging({super.key});
+  const DescriptionScreen({super.key});
 
   @override
-  State<OnBoarging> createState() => _OnBoargingState();
+  State<DescriptionScreen> createState() => _DescriptionScreenState();
 }
 
-class _OnBoargingState extends State<OnBoarging> {
+class _DescriptionScreenState extends State<DescriptionScreen> {
   int currentIndex = 0;
   final _controller = PageController();
 
@@ -70,8 +70,7 @@ class _OnBoargingState extends State<OnBoarging> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.pushReplacementNamed(
-                      context, RegisterScreen.routeName);
+                  Navigator.pushReplacementNamed(context, HomeLayout.routeName);
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 780, left: 330),

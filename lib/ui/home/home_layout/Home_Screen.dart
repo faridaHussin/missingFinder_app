@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:missing_finder1/ui/home/home_layout/ChangePasswordScreen.dart';
+import 'package:missing_finder1/ui/home/home_layout/DeleteAccountScreen.dart';
 import 'package:missing_finder1/ui/home/listOfMissigPersons/ListOfMissing.dart';
 import 'package:missing_finder1/ui/home/searchTab/SearchScreen.dart';
 
@@ -59,16 +61,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 ListTile(
-                  title: Text('Change Possword',
-                      style: TextStyle(color: Colors.black, fontSize: 15)),
-                  onTap: () => null,
-                ),
+                    title: Text('Change Possword',
+                        style: TextStyle(color: Colors.black, fontSize: 15)),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                          context, ChangePasswordScreen.routeName);
+                    }),
                 ListTile(
-                  leading: Icon(Icons.delete),
-                  title: Text('Delete Account',
-                      style: TextStyle(color: Colors.black, fontSize: 15)),
-                  onTap: () => null,
-                ),
+                    leading: Icon(Icons.delete),
+                    title: Text('Delete Account',
+                        style: TextStyle(color: Colors.black, fontSize: 15)),
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                          context, DeleteAccountScreen.routeName);
+                    }),
                 ListTile(
                   leading: Icon(Icons.language),
                   title: Text('Language',
